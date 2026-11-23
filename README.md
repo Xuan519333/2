@@ -1,4 +1,4 @@
-[index.html](https://github.com/user-attachments/files/35277970/index.html)
+[index.html](https://github.com/user-attachments/files/35278818/index.html)
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -61,36 +61,11 @@
   .card h3{font-size:15px;font-weight:600;margin-bottom:4px}
   .card .desc{font-size:13px;color:var(--muted)}
 
-  /* 课程进度 */
-  .courses{grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
-  .course .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}
-  .course .name{font-weight:600;font-size:14px}
-  .course .pct{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
-  .bar{height:8px;background:#eef2f7;border-radius:999px;overflow:hidden}
-  .bar > i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#185fa5,#0f6e56);width:0;transition:width 1.1s cubic-bezier(.2,.8,.2,1)}
-  .course .note{margin-top:8px;font-size:12px;color:var(--muted)}
-
-  /* 笔记列表 */
-  .notes{list-style:none}
-  .notes li{display:flex;gap:12px;padding:11px 0;border-bottom:1px dashed var(--line)}
-  .notes li:last-child{border-bottom:0}
-  .notes .date{flex:0 0 64px;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;padding-top:2px}
-  .notes .body{flex:1}
-  .notes .t{font-size:14px;font-weight:500}
-  .notes .tags{margin-top:3px}
-  .tag{display:inline-block;font-size:11px;background:var(--accent-soft);color:var(--accent);padding:1px 8px;border-radius:4px;margin-right:5px}
-  .tag.b{background:#e6f1fb;color:var(--brand)}
-  .tag.a{background:var(--amber-soft);color:var(--amber)}
-
-  /* 项目卡片 */
-  .projects{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
-  .proj .num{font-size:12px;color:var(--brand-2);font-weight:600;letter-spacing:1px}
-  .proj .t{font-size:15px;font-weight:600;margin:3px 0 6px}
-  .proj ul{margin:8px 0 0 14px;font-size:13px;color:var(--muted)}
-  .status{display:inline-block;font-size:11px;padding:2px 9px;border-radius:999px;margin-top:10px}
-  .status.doing{background:var(--amber-soft);color:var(--amber)}
-  .status.done{background:var(--accent-soft);color:var(--accent)}
-  .status.plan{background:#eef2f7;color:var(--muted)}
+  /* 学习笔记（自由卡片式） */
+  .notes-grid{grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+  .note{display:flex;flex-direction:column;gap:10px}
+  .note-date{font-size:12px;color:var(--brand-2);font-weight:600;letter-spacing:.5px;border-left:3px solid var(--accent);padding-left:8px}
+  .note-body{font-size:14px;color:var(--ink);white-space:pre-wrap}
 
   /* 资源 */
   .links{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}
@@ -129,163 +104,44 @@
       <span class="pill" id="weekPill">第 — 周</span>
     </div>
     <div class="stats">
-      <div><b id="statCourse">0</b><span>在修课程</span></div>
       <div><b id="statNote">0</b><span>学习笔记</span></div>
-      <div><b id="statProj">0</b><span>实验项目</span></div>
+      <div><b id="statTodo">0</b><span>本周计划</span></div>
       <div><b id="statDay">0</b><span>入学天数</span></div>
     </div>
   </div>
 </header>
 
-<!-- ===================================== ① 课程进度看板 =====================================
-     说明：在 <div class="grid courses"> 里复制/删除一个 <div class="card course"> 即可增删课程。
-     data-pct 是进度百分比(0~100)，页面加载时会自动播放进度条动画。
-     ============================================================ -->
-<section class="wrap" id="courses">
-  <div class="sec-head">
-    <h2>课程进度看板</h2>
-    <span class="sub">大一上学期 · 点击右上角进度数字查看掌握程度</span>
-  </div>
-  <div class="grid courses">
-
-    <div class="card course" data-pct="62">
-      <div class="top"><span class="name">电路基础</span><span class="pct">62%</span></div>
-      <div class="bar"><i></i></div>
-      <div class="note">欧姆定律 / 基尔霍夫 / 戴维南定理</div>
-    </div>
-
-    <div class="card course" data-pct="55">
-      <div class="top"><span class="name">高等数学</span><span class="pct">55%</span></div>
-      <div class="bar"><i></i></div>
-      <div class="note">极限 / 导数 / 微分基础</div>
-    </div>
-
-    <div class="card course" data-pct="70">
-      <div class="top"><span class="name">工程制图（CAD）</span><span class="pct">70%</span></div>
-      <div class="bar"><i></i></div>
-      <div class="note">AutoCAD 基本操作 / 电气符号</div>
-    </div>
-
-    <div class="card course" data-pct="40">
-      <div class="top"><span class="name">C 语言程序设计</span><span class="pct">40%</span></div>
-      <div class="bar"><i></i></div>
-      <div class="note">变量 / 流程控制 / 函数入门</div>
-    </div>
-
-    <div class="card course" data-pct="80">
-      <div class="top"><span class="name">大学英语</span><span class="pct">80%</span></div>
-      <div class="bar"><i></i></div>
-      <div class="note">词汇积累 / 四级备考中</div>
-    </div>
-
-    <div class="card course" data-pct="90">
-      <div class="top"><span class="name">思想政治理论</span><span class="pct">90%</span></div>
-      <div class="bar"><i></i></div>
-      <div class="note">按时完成 / 期末复习中</div>
-    </div>
-
-  </div>
-</section>
-
-<!-- ===================================== ② 近期学习笔记 =====================================
-     说明：在 <ul class="notes"> 里复制一个 <li> 即可新增笔记。
+<!-- ===================================== 学习笔记 =====================================
+     说明：每条笔记是一个 <article>，复制一个就新增一条。
+     正文随便写，几行都行；日期格式如 11-21。
      ============================================================ -->
 <section class="wrap" id="notes">
   <div class="sec-head">
-    <h2>近期学习笔记</h2>
-    <span class="sub">随手记，攒成自己的知识库</span>
+    <h2>学习笔记</h2>
+    <span class="sub">想写什么写什么，自由记录</span>
   </div>
-  <div class="card">
-    <ul class="notes">
-      <li>
-        <div class="date">11-21</div>
-        <div class="body">
-          <div class="t">基尔霍夫电流定律（KCL）与电压定律（KVL）小结</div>
-          <div class="tags"><span class="tag b">电路基础</span><span class="tag">节点/回路</span></div>
-        </div>
-      </li>
-      <li>
-        <div class="date">11-18</div>
-        <div class="body">
-          <div class="t">导数定义与几何意义：切线斜率 = 瞬时变化率</div>
-          <div class="tags"><span class="tag a">高等数学</span><span class="tag">求导公式</span></div>
-        </div>
-      </li>
-      <li>
-        <div class="date">11-15</div>
-        <div class="body">
-          <div class="t">AutoCAD 电气图层设置与常用符号库整理</div>
-          <div class="tags"><span class="tag b">工程制图</span><span class="tag">CAD</span></div>
-        </div>
-      </li>
-      <li>
-        <div class="date">11-12</div>
-        <div class="body">
-          <div class="t">C 语言 for 循环与一维数组：成绩统计小练习</div>
-          <div class="tags"><span class="tag a">C 语言</span><span class="tag">数组</span></div>
-        </div>
-      </li>
-      <li>
-        <div class="date">11-09</div>
-        <div class="body">
-          <div class="t">认识 PLC：可编程逻辑控制器在自动化产线中的作用</div>
-          <div class="tags"><span class="tag">专业认知</span><span class="tag">PLC</span></div>
-        </div>
-      </li>
-    </ul>
-  </div>
-</section>
+  <div class="grid notes-grid">
 
-<!-- ===================================== ③ 实验与项目 =====================================
-     说明：在 <div class="grid projects"> 里复制一个 <div class="card proj"> 即可新增项目。
-     status 三种：doing(进行中) / done(已完成) / plan(计划中)
-     ============================================================ -->
-<section class="wrap" id="projects">
-  <div class="sec-head">
-    <h2>实验与项目</h2>
-    <span class="sub">把动手做的记录下来，毕业就是作品集</span>
-  </div>
-  <div class="grid projects">
+    <article class="card note">
+      <div class="note-date">11-21</div>
+      <div class="note-body">
+        今天学了基尔霍夫定律：KCL 节点电流进=出，KVL 回路电压升=降。难点在判断方向，先标好参考方向再列方程就不容易错。
+      </div>
+    </article>
 
-    <div class="card proj">
-      <div class="num">EXP-01</div>
-      <div class="t">万用表测电压电流电阻</div>
-      <ul>
-        <li>直流/交流电压测量</li>
-        <li>电阻档位选择与读数</li>
-      </ul>
-      <span class="status done">已完成</span>
-    </div>
+    <article class="card note">
+      <div class="note-date">11-18</div>
+      <div class="note-body">
+        导数的几何意义是切线斜率，也就是瞬时变化率。记几个常用公式：幂函数、sin、cos、e^x，多做题找手感。
+      </div>
+    </article>
 
-    <div class="card proj">
-      <div class="num">EXP-02</div>
-      <div class="t">基尔霍夫定律验证实验</div>
-      <ul>
-        <li>搭建多回路电路</li>
-        <li>测量验证 KCL/KVL</li>
-      </ul>
-      <span class="status doing">进行中</span>
-    </div>
-
-    <div class="card proj">
-      <div class="num">EXP-03</div>
-      <div class="t">日光灯电路与功率因数提高</div>
-      <ul>
-        <li>感性负载分析</li>
-        <li>并联电容补偿</li>
-      </ul>
-      <span class="status plan">计划中</span>
-    </div>
-
-    <div class="card proj">
-      <div class="num">PRJ-01</div>
-      <div class="t">用 C 语言写一个简易计算器</div>
-      <ul>
-        <li>练习函数与流程控制</li>
-        <li>控制台交互</li>
-      </ul>
-      <span class="status plan">计划中</span>
-    </div>
+    <article class="card note">
+      <div class="note-date">11-15</div>
+      <div class="note-body">
+        AutoCAD 电气图层：强电、弱电、控制分开画，符号按国标。今天整理了一份常用符号表，放在桌面。
+      </div>
+    </article>
 
   </div>
 </section>
@@ -329,12 +185,9 @@
     <span class="sub">每周初更新一次，做完就打勾</span>
   </div>
   <div class="card todo">
-    <label><input type="checkbox"><span>复习电路基础第 3 章，做课后习题</span></label>
-    <label><input type="checkbox"><span>整理高数导数公式表</span></label>
-    <label><input type="checkbox"><span>完成基尔霍夫实验报告</span></label>
-    <label><input type="checkbox"><span>C 语言练习：写一个数组求最值的程序</span></label>
-    <label><input type="checkbox"><span>背英语单词 100 个</span></label>
-    <label><input type="checkbox"><span>看 2 集 PLC 入门视频</span></label>
+    <label><input type="checkbox"><span>学习电气知识</span></label>
+    <label><input type="checkbox"><span>每天背 60 个英语单词</span></label>
+    <label><input type="checkbox"><span>每周英语周刊</span></label>
   </div>
 </section>
 
@@ -355,22 +208,9 @@
   const week = Math.max(1, Math.ceil(days / 7));
   document.getElementById('statDay').textContent = days;
   document.getElementById('weekPill').textContent = '第 ' + week + ' 周';
-  document.getElementById('statCourse').textContent = document.querySelectorAll('#courses .course').length;
-  document.getElementById('statNote').textContent = document.querySelectorAll('#notes .notes li').length;
-  document.getElementById('statProj').textContent = document.querySelectorAll('#projects .proj').length;
+  document.getElementById('statNote').textContent = document.querySelectorAll('#notes .note').length;
+  document.getElementById('statTodo').textContent = document.querySelectorAll('#todo input[type=checkbox]').length;
   document.getElementById('year').textContent = now.getFullYear();
-
-  // ===== 进度条动画 =====
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        const pct = e.target.getAttribute('data-pct');
-        e.target.querySelector('.bar > i').style.width = pct + '%';
-        io.unobserve(e.target);
-      }
-    });
-  }, { threshold: .3 });
-  document.querySelectorAll('#courses .course').forEach(c => io.observe(c));
 </script>
 </body>
 </html>
